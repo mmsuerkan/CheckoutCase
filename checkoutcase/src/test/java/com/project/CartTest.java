@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.exception.ItemQuantityExceededException;
 import com.project.exception.VasItemLimitExceededException;
 import com.project.exception.VasItemPriceExceededException;
 import com.project.model.cart.Cart;
@@ -42,6 +43,17 @@ public class CartTest {
         assertEquals(1, cart.getItems().size());
         assertEquals(item.getTotalPrice(), cart.getTotalAmount());
     }
+
+    @Test
+    @DisplayName("Maximum quantity of a Item cannot exceed 10")
+    public void add_item_with_quantity_11() {
+        Item item = new DefaultItem(1, 100, 200, 11);
+        double price = priceService.getPriceBySellerAndItemId(String.valueOf(1), 1);
+        item.setPrice(price);
+
+        assertThrows(ItemQuantityExceededException.class, () -> cart.addItem(item));
+    }
+
 
     @Test
     @DisplayName("The total number of products cannot exceed 30")

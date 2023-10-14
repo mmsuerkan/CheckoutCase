@@ -23,6 +23,11 @@ public class Cart implements CartInterface {
 
     @Override
     public boolean addItem(Item item) {
+
+        if(item.getQuantity() > 10){
+            throw new ItemQuantityExceededException("Item quantity cannot exceed 10.");
+        }
+
         if (items.size() >= 10) {
             throw new CartFullException("Cart is full. Maximum of 10 unique items allowed.");
         }
