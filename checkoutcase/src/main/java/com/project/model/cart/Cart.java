@@ -1,5 +1,9 @@
 package com.project.model.cart;
 
+import com.project.exception.CartFullException;
+import com.project.exception.ItemNotUniqueException;
+import com.project.exception.TotalAmountExceededException;
+import com.project.exception.TotalQuantityExceededException;
 import com.project.interfaces.CartInterface;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
@@ -22,32 +26,41 @@ public class Cart implements CartInterface {
 
     @Override
     public boolean addItem(Item item) {
-        if (items.size() < 10 && getTotalQuantity() + item.getQuantity() <= 30
-                && getTotalAmount() + item.getTotalPrice() <= 500000
-                && isUniqueItem(item)) {
-            items.add(item);
-            return true;
+        if (items.size() >= 10) {
+            throw new CartFullException("Cart is full. Maximum of 10 unique items allowed.");
         }
-        throw new RuntimeException("Cart is full");
+
+        if (getTotalQuantity() + item.getQuantity() > 30) {
+            throw new TotalQuantityExceededException("Maximum total quantity of items cannot exceed 30.");
+        }
+
+        if (getTotalAmount() + item.getTotalPrice() > 500000) {
+            throw new TotalAmountExceededException("Maximum total amount of the Cart cannot exceed 50000 TL.");
+        }
+
+        if (!isUniqueItem(item)) {
+            throw new ItemNotUniqueException("Item is not unique. Maximum 10 identical items allowed.");
+        }
+
+        items.add(item);
+        return true;
     }
 
     private boolean isUniqueItem(Item item) {
         // Benzersizlik kontrolü
         int itemCount = 0;
         for (Item existingItem : items) {
-            // Sadece aynı türde ve aynı ID'ye sahip diğer öğeleri sayar.
             if (!isVasItem(existingItem) && existingItem != item && existingItem.getItemId() == item.getItemId() && existingItem.getClass() == item.getClass()) {
                 itemCount++;
             }
             if (itemCount >= 10) {
-                return false; // Aynı türde ve aynı ID'ye sahip 10 öğeden fazlasını eklemeye izin verme.
+                return false;
             }
         }
-        return true; // Benzersiz bir öğe.
+        return true;
     }
 
     private boolean isVasItem(Item item) {
-        // Eklenen öğe bir VasItem mı kontrol edin.
         return item instanceof VasItem;
     }
 
@@ -77,7 +90,8 @@ public class Cart implements CartInterface {
     }
 
     public double getTotalAmount() {
-        return items.stream().mapToDouble(Item::getTotalPrice).sum();
+        totalAmount = items.stream().mapToDouble(Item::getTotalPrice).sum();
+        return totalAmount;
     }
 
     public int getCartId() {

@@ -54,5 +54,14 @@ public class CartTest {
         assertTrue(addDefaultItem);
         assertTrue(addDigitalItem);
     }
+    @Test(expected = RuntimeException.class)
+    @DisplayName("The total amount of the Cart cannot exceed 500,000 TL")
+    public void add_item_to_chart_with_total_amount_exceed_500000() {
+        Item defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 3));
 
+        boolean addDefaultItem = cart.addItem(defaultItem);
+
+        assertTrue(addDefaultItem);
+    }
 }
