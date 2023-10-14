@@ -1,5 +1,7 @@
 package com.project.model.item;
 
+import com.project.exception.VasItemLimitExceededException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class DefaultItem extends Item {
 
     public DefaultItem(int itemId, int categoryId, int sellerId, int quantity) {
         super(itemId, categoryId, sellerId, quantity);
-        this.vasItems = new ArrayList<>(3);
+        this.vasItems = new ArrayList<>();
     }
 
     @Override
@@ -26,10 +28,10 @@ public class DefaultItem extends Item {
     }
 
     public boolean addVasItem(VasItem vasItem) {
-        if (vasItem != null && vasItems.size() < 3) {
-            vasItems.add(vasItem);
-            return true;
+        if (vasItems.size() > 3) {
+          throw new VasItemLimitExceededException("Vas Item limit exceeded");
         }
-        return false;
+        vasItems.add(vasItem);
+        return true;
     }
 }

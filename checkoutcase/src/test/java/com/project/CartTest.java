@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.exception.VasItemLimitExceededException;
 import com.project.model.cart.Cart;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.DigitalItem;
@@ -167,5 +168,22 @@ public class CartTest {
         assertThrows(RuntimeException.class, () -> cart.addItem(defaultItem11));
     }
 
+    @Test
+    @DisplayName("A maximum of 3 VasItems  can be added to a DefaultItem.")
+    public void add_4_vas_item_to_default_item() {
+        VasItem vasItem = new VasItem(1, 1, 1, 1, 1);
+        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
+        defaultItem.addVasItem(vasItem);
+        defaultItem.addVasItem(vasItem);
+        defaultItem.addVasItem(vasItem);
+        defaultItem.addVasItem(vasItem);
+
+        assertThrows(VasItemLimitExceededException.class, () -> defaultItem.addVasItem(vasItem));
+    }
 
 }
+
+
