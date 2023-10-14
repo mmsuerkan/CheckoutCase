@@ -3,6 +3,7 @@ package com.project;
 import com.project.exception.VasItemLimitExceededException;
 import com.project.exception.VasItemPriceExceededException;
 import com.project.model.cart.Cart;
+import com.project.exception.ChartEmptyException;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.DigitalItem;
 import com.project.model.item.Item;
@@ -201,6 +202,25 @@ public class CartTest {
 
         assertThrows(VasItemPriceExceededException.class, () -> defaultItem.addVasItem(vasItem));
     }
+    @Test
+    @DisplayName("Remove Item from Empty Cart")
+    public void remove_item_from_empty_cart() throws ChartEmptyException {
+
+       assertThrows(ChartEmptyException.class, () -> cart.removeItem(1));
+    }
+
+    @Test
+    @DisplayName("Remove Item from Cart")
+    public void remove_item_from_cart() throws ChartEmptyException {
+        Item defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        cart.addItem(defaultItem);
+        boolean result = cart.removeItem(1);
+        assertTrue(result);
+        assertEquals(0, cart.getItems().size());
+    }
+
 
 
 }

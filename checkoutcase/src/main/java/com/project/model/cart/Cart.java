@@ -1,9 +1,6 @@
 package com.project.model.cart;
 
-import com.project.exception.CartFullException;
-import com.project.exception.ItemNotUniqueException;
-import com.project.exception.TotalAmountExceededException;
-import com.project.exception.TotalQuantityExceededException;
+import com.project.exception.*;
 import com.project.interfaces.CartInterface;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
@@ -65,8 +62,18 @@ public class Cart implements CartInterface {
     }
 
     @Override
-    public boolean removeItem(int itemId) {
+    public boolean removeItem(int itemId) throws ChartEmptyException {
 
+        if(items.isEmpty()){
+            throw new ChartEmptyException("Chart is empty. You cannot remove any item.");
+        }
+
+        for (Item item : items) {
+            if (item.getItemId() == itemId) {
+                items.remove(item);
+                return true;
+            }
+        }
         return false;
     }
 
