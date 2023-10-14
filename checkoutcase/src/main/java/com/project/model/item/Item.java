@@ -9,14 +9,14 @@ public abstract class Item implements ItemInterface {
     protected int sellerId;
     protected int quantity;
 
+    protected double price;
+
     public Item(int itemId, int categoryId, int sellerId,int quantity) {
         this.itemId = itemId;
         this.categoryId = categoryId;
         this.sellerId = sellerId;
         this.quantity = quantity;
     }
-    @Override
-    public abstract double getTotalPrice();
     @Override
     public int getItemId() {
         return itemId;
@@ -38,4 +38,6 @@ public abstract class Item implements ItemInterface {
     public String toString() {
         return this.getClass().getSimpleName();
     }
+
+    public abstract void setPrice(double price);
 }

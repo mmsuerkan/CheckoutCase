@@ -2,13 +2,15 @@ package com.project.interfaces;
 
 public interface ItemInterface {
 
-        public double getTotalPrice();
+    double getTotalPrice();
 
-        public int getItemId();
+    int getItemId();
 
-        public int getCategoryId();
+    int getCategoryId();
 
-        public int getSellerId();
+    int getSellerId();
 
-        public int getQuantity();
+    int getQuantity();
+
+    void setPrice(double price);
 }
