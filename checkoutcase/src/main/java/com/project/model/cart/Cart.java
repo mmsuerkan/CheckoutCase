@@ -2,6 +2,7 @@ package com.project.model.cart;
 
 import com.project.exception.*;
 import com.project.interfaces.CartInterface;
+import com.project.model.item.DefaultItem;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
 import com.project.model.promotion.Promotion;
@@ -75,6 +76,9 @@ public class Cart implements CartInterface {
 
         for (Item item : items) {
             if (item.getItemId() == itemId) {
+                if(item instanceof DefaultItem){
+                    ((DefaultItem) item).getVasItems().clear();
+                }
                 items.remove(item);
                 return true;
             }
