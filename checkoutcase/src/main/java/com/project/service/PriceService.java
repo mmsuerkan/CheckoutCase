@@ -14,7 +14,6 @@ public class PriceService {
     }
 
     public double getPriceBySellerAndItemId(String sellerId, int itemId) {
-        double price = priceRepository.getPriceBySellerAndItemId(sellerId, itemId);
-        return price;
+        return priceRepository.getPriceBySellerAndItemId(sellerId, itemId);
     }
 }

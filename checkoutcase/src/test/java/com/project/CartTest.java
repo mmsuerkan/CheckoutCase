@@ -259,10 +259,10 @@ public class CartTest {
 
         assertEquals(1, cart.getItems().size());
         //content comparison
-        assertEquals("total amount: 50.0\n" +
+        assertEquals("total amount: 500.0\n" +
                 "total discount: 0.0\n" +
                 "applied promotion id: 0\n" +
-                "items: 1 100 200 50.0 1[]\n", cart.displayCart());
+                "items: 1 100 200 500.0 1 []\n", cart.displayCart());
 
     }
 
@@ -282,15 +282,87 @@ public class CartTest {
 
         assertEquals(1, cart.getItems().size());
         //content comparison
-        assertEquals("total amount: 60.0\n" +
+        assertEquals("total amount: 700.0\n" +
                 "total discount: 0.0\n" +
                 "applied promotion id: 0\n" +
-                "items: 1 100 200 50.0 1 [vasItemId: 1 vasCategoryId: 3242 vasSellerId: 5003 price: 10.0 quantity: 1]\n", cart.displayCart());
+                "items: 1 100 200 500.0 1 [vasItemId: 1 vasCategoryId: 3242 vasSellerId: 5003 price: 200.0 quantity: 1]\n", cart.displayCart());
+    }
+
+    @Test
+    @DisplayName("Apply Same Seller Promotion")
+    public void apply_same_seller_promotion() throws ChartEmptyException {
+        DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        cart.addItem(defaultItem);
+
+        DefaultItem defaultItem2 = new DefaultItem(2, 100, 200, 1);
+        defaultItem2.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(2), 5));
+
+        cart.addItem(defaultItem2);
+
+        DefaultItem defaultItem3 = new DefaultItem(3, 100, 200, 1);
+        defaultItem3.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 6));
+
+        cart.addItem(defaultItem3);
+
+        cart.applyPromotions();
+
+        assertEquals(3, cart.getItems().size());
+        assertEquals(1232, cart.getAppliedPromotionId());
+        assertEquals(250.0, cart.getTotalDiscount());
 
     }
 
+    @Test
+    @DisplayName("Category Promotion")
+    public void apply_category_promotion() throws ChartEmptyException {
+        DefaultItem defaultItem = new DefaultItem(1, 100, 1, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
 
+        cart.addItem(defaultItem);
 
+        DefaultItem defaultItem2 = new DefaultItem(2, 3003, 2, 1);
+        defaultItem2.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(2), 5));
+
+        cart.addItem(defaultItem2);
+
+        DefaultItem defaultItem3 = new DefaultItem(3, 3003, 3, 1);
+        defaultItem3.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(3), 6));
+
+        cart.addItem(defaultItem3);
+
+        cart.applyPromotions();
+
+        assertEquals(3, cart.getItems().size());
+        assertEquals(1232, cart.getAppliedPromotionId());
+        assertEquals(250.0, cart.getTotalDiscount());
+    }
+
+    @Test
+    @DisplayName("Apply Total Price Promotion")
+    public void apply_total_price_promotion() throws ChartEmptyException {
+        DefaultItem defaultItem = new DefaultItem(1, 100, 1, 9);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId("1", 1));
+
+        cart.addItem(defaultItem);
+
+        DefaultItem defaultItem2 = new DefaultItem(2, 200, 2, 9);
+        defaultItem2.setPrice(priceService.getPriceBySellerAndItemId("2", 2));
+
+        cart.addItem(defaultItem2);
+
+        DefaultItem defaultItem3 = new DefaultItem(3, 300, 3, 9);
+        defaultItem3.setPrice(priceService.getPriceBySellerAndItemId("3", 3));
+
+        cart.addItem(defaultItem3);
+
+        cart.applyPromotions();
+
+        assertEquals(3, cart.getItems().size());
+        assertEquals(1232, cart.getAppliedPromotionId());
+        assertEquals(1000.0, cart.getTotalDiscount());
+    }
 }
 
 

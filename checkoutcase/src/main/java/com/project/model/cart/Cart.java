@@ -5,7 +5,7 @@ import com.project.interfaces.CartInterface;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
-import com.project.model.promotion.Promotion;
+import com.project.service.PromotionService;
 
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Cart implements CartInterface {
     @Override
     public boolean addItem(Item item) {
 
-        if(item.getQuantity() > 10){
+        if (item.getQuantity() > 10) {
             throw new ItemQuantityExceededException("Item quantity cannot exceed 10.");
         }
 
@@ -63,20 +63,20 @@ public class Cart implements CartInterface {
         return true;
     }
 
-    private boolean isVasItem(Item item) {
+    public static boolean isVasItem(Item item) {
         return item instanceof VasItem;
     }
 
     @Override
     public boolean removeItem(int itemId) throws ChartEmptyException {
 
-        if(items.isEmpty()){
+        if (items.isEmpty()) {
             throw new ChartEmptyException("Chart is empty. You cannot remove any item.");
         }
 
         for (Item item : items) {
             if (item.getItemId() == itemId) {
-                if(item instanceof DefaultItem){
+                if (item instanceof DefaultItem) {
                     ((DefaultItem) item).getVasItems().clear();
                 }
                 items.remove(item);
@@ -88,7 +88,7 @@ public class Cart implements CartInterface {
 
     @Override
     public void resetCart() {
-        if(items.stream().anyMatch(DefaultItem.class::isInstance)){
+        if (items.stream().anyMatch(DefaultItem.class::isInstance)) {
             items.stream().filter(DefaultItem.class::isInstance).forEach(item -> ((DefaultItem) item).getVasItems().clear());
         }
         this.items.clear();
@@ -96,15 +96,13 @@ public class Cart implements CartInterface {
         this.totalDiscount = 0;
         this.appliedPromotionId = 0;
     }
-
     @Override
-    public void applyPromotion(Promotion promotion) {
-
+    public void applyPromotions() {
+        PromotionService.applyBestPromotion(this);
     }
 
     @Override
     public String displayCart() {
-        //display all items in the cart in items list
         return "total amount: " + getTotalAmount() + "\n" +
                 "total discount: " + getTotalDiscount() + "\n" +
                 "applied promotion id: " + getAppliedPromotionId() + "\n" +
