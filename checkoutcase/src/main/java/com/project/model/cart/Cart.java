@@ -28,7 +28,7 @@ public class Cart implements CartInterface {
             items.add(item);
             return true;
         }
-        return false;
+        throw new RuntimeException("Cart is full");
     }
 
     private boolean isUniqueItem(Item item) {

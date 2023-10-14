@@ -2,10 +2,12 @@ package com.project;
 
 import com.project.model.cart.Cart;
 import com.project.model.item.DefaultItem;
+import com.project.model.item.DigitalItem;
 import com.project.model.item.Item;
 import com.project.service.PriceService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,11 +24,12 @@ public class CartTest {
     }
 
     @Test
+    @DisplayName("Add one default item to chart")
     public void add_one_default_item_to_chart() {
         Item item = new DefaultItem(1, 100, 200, 5);
         double price = priceService.getPriceBySellerAndItemId(String.valueOf(1), 1);
         item.setPrice(price);
-        // Sepete item ekleyin
+
         boolean result = cart.addItem(item);
         assertTrue(result);
 
@@ -34,4 +37,22 @@ public class CartTest {
 
         assertEquals(item.getTotalPrice(), cart.getTotalAmount());
     }
+
+    @Test(expected = RuntimeException.class)
+    @DisplayName("The total number of products cannot exceed 30")
+    public void add_32_item_to_chart() {
+        Item defaultItem = new DefaultItem(1, 100, 200, 6);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        DigitalItem digitalItem = new DigitalItem(2, 100, 200, 26);
+        digitalItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 2));
+
+
+        boolean addDefaultItem = cart.addItem(defaultItem);
+        boolean addDigitalItem = cart.addItem(digitalItem);
+
+        assertTrue(addDefaultItem);
+        assertTrue(addDigitalItem);
+    }
+
 }
