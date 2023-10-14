@@ -11,26 +11,30 @@ public abstract class Item implements ItemInterface {
 
     protected double price;
 
-    public Item(int itemId, int categoryId, int sellerId,int quantity) {
+    public Item(int itemId, int categoryId, int sellerId, int quantity) {
         this.itemId = itemId;
         this.categoryId = categoryId;
         this.sellerId = sellerId;
         this.quantity = quantity;
     }
+
     @Override
     public int getItemId() {
         return itemId;
     }
+
     @Override
     public int getCategoryId() {
         return categoryId;
     }
+
     @Override
     public int getSellerId() {
         return sellerId;
     }
+
     @Override
-    public int getQuantity(){
+    public int getQuantity() {
         return quantity;
     }
 
