@@ -1,6 +1,7 @@
 package com.project.model.item;
 
 import com.project.exception.VasItemLimitExceededException;
+import com.project.exception.VasItemPriceExceededException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,11 @@ public class DefaultItem extends Item {
     }
 
     @Override
+    public double getPrice() {
+        return this.price;
+    }
+
+    @Override
     public double getTotalPrice() {
         double vasItemsTotalPrice = 0;
         for (VasItem vasItem : vasItems) {
@@ -31,7 +37,12 @@ public class DefaultItem extends Item {
         if (vasItems.size() > 3) {
           throw new VasItemLimitExceededException("Vas Item limit exceeded");
         }
+        if(vasItem.getPrice() > this.getPrice()){
+            throw new VasItemPriceExceededException("Vas Item price exceeded");
+        }
         vasItems.add(vasItem);
         return true;
     }
+
+
 }

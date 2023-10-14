@@ -22,5 +22,10 @@ public class DigitalItem extends Item {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public double getPrice() {
+        return this.price;
+    }
 }
 

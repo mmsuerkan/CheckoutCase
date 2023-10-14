@@ -19,8 +19,7 @@ public class VasItem extends Item {
     public int getItemId() {
         return super.getItemId();
     }
-
-    // Getter and Setter methods for price and quantity
+    @Override
     public double getPrice() {
         return price;
     }

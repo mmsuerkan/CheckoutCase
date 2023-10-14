@@ -13,4 +13,6 @@ public interface ItemInterface {
     int getQuantity();
 
     void setPrice(double price);
+
+    double getPrice();
 }

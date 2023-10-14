@@ -1,6 +1,7 @@
 package com.project;
 
 import com.project.exception.VasItemLimitExceededException;
+import com.project.exception.VasItemPriceExceededException;
 import com.project.model.cart.Cart;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.DigitalItem;
@@ -183,6 +184,20 @@ public class CartTest {
 
         assertThrows(VasItemLimitExceededException.class, () -> defaultItem.addVasItem(vasItem));
     }
+
+    @Test
+    @DisplayName("Price of VasItem cannot exceed default item price")
+    public void add_vas_item_to_default_item_with_price_exceed_default_item_price() {
+        VasItem vasItem = new VasItem(1, 1, 1, 1, 1);
+        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
+
+
+        assertThrows(VasItemPriceExceededException.class, () -> defaultItem.addVasItem(vasItem));
+    }
+
 
 }
 

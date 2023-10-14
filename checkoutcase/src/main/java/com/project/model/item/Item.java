@@ -44,4 +44,6 @@ public abstract class Item implements ItemInterface {
     }
 
     public abstract void setPrice(double price);
+
+    public abstract double getTotalPrice();
 }
