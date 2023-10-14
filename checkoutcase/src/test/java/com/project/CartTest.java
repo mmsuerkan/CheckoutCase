@@ -7,6 +7,7 @@ import com.project.model.item.DefaultItem;
 import com.project.model.item.DigitalItem;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
+import com.project.repository.PriceRepository;
 import com.project.service.PriceService;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,10 +20,13 @@ public class CartTest {
     private Cart cart;
     private PriceService priceService;
 
+    private PriceRepository priceRepository;
+
     @Before
     public void setUp() {
         cart = new Cart();
-        priceService = new PriceService();
+        priceRepository = new PriceRepository();
+        priceService = new PriceService(priceRepository);
     }
 
     @Test
@@ -117,11 +121,11 @@ public class CartTest {
     @DisplayName("Adding more than 10 unique items (excluding VasItems).")
     public void add_11_item_to_chart_including_vas_items() {
         VasItem vasItem = new VasItem(1, 1, 1, 1, 1);
-        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
 
 
         DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
-        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
         defaultItem.addVasItem(vasItem);
 
         DefaultItem defaultItem2 = new DefaultItem(2, 100, 200, 1);
@@ -173,10 +177,10 @@ public class CartTest {
     @DisplayName("A maximum of 3 VasItems  can be added to a DefaultItem.")
     public void add_4_vas_item_to_default_item() {
         VasItem vasItem = new VasItem(1, 1, 1, 1, 1);
-        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
 
         DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
-        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
         defaultItem.addVasItem(vasItem);
         defaultItem.addVasItem(vasItem);
         defaultItem.addVasItem(vasItem);
