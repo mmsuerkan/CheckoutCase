@@ -51,6 +51,6 @@ public class DefaultItem extends Item {
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + this.getVasItems().toString();
     }
 }

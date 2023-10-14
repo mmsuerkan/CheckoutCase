@@ -41,4 +41,9 @@ public abstract class Item implements ItemInterface {
     public abstract void setPrice(double price);
 
     public abstract double getTotalPrice();
+
+    @Override
+    public String toString() {
+        return this.getItemId() + " " + this.getCategoryId() + " " + this.getSellerId() + " " + this.getPrice() + " " + this.getQuantity() + " ";
+    }
 }

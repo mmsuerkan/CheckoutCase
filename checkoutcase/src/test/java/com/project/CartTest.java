@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CartTest {
 
@@ -245,6 +246,47 @@ public class CartTest {
         assertEquals(0, cart.getTotalAmount());
         assertEquals(0, cart.getTotalDiscount());
         assertEquals(0, cart.getAppliedPromotionId());
+    }
+
+    @Test
+    @DisplayName("Display Cart without VasItem")
+    public void display_cart_without_VasItem() throws ChartEmptyException {
+        Item defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        cart.addItem(defaultItem);
+        cart.displayCart();
+
+        assertEquals(1, cart.getItems().size());
+        //content comparison
+        assertEquals("total amount: 50.0\n" +
+                "total discount: 0.0\n" +
+                "applied promotion id: 0\n" +
+                "items: 1 100 200 50.0 1[]\n", cart.displayCart());
+
+    }
+
+    @Test
+    @DisplayName("Display Cart with VasItem")
+    public void display_cart_with_VasItem() throws ChartEmptyException {
+        DefaultItem defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        cart.addItem(defaultItem);
+
+        VasItem vasItem = new VasItem(1, 1, 1, 1, 1);
+        vasItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 4));
+        defaultItem.addVasItem(vasItem);
+
+        cart.displayCart();
+
+        assertEquals(1, cart.getItems().size());
+        //content comparison
+        assertEquals("total amount: 60.0\n" +
+                "total discount: 0.0\n" +
+                "applied promotion id: 0\n" +
+                "items: 1 100 200 50.0 1 [vasItemId: 1 vasCategoryId: 3242 vasSellerId: 5003 price: 10.0 quantity: 1]\n", cart.displayCart());
+
     }
 
 

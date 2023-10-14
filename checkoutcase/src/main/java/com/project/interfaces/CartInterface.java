@@ -9,5 +9,5 @@ public interface CartInterface {
     boolean removeItem(int itemId) throws ChartEmptyException;
     void resetCart();
     void applyPromotion(Promotion promotion);
-    void displayCart();
+    String displayCart();
 }

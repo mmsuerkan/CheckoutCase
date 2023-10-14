@@ -103,8 +103,12 @@ public class Cart implements CartInterface {
     }
 
     @Override
-    public void displayCart() {
-
+    public String displayCart() {
+        //display all items in the cart in items list
+        return "total amount: " + getTotalAmount() + "\n" +
+                "total discount: " + getTotalDiscount() + "\n" +
+                "applied promotion id: " + getAppliedPromotionId() + "\n" +
+                "items: " + getItems().stream().map(Item::toString).reduce("", (s, s2) -> s + s2 + "\n");
     }
 
     private int getTotalQuantity() {
