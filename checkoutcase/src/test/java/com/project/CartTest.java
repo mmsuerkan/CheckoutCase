@@ -233,6 +233,20 @@ public class CartTest {
         assertEquals(0, cart.getItems().size());
     }
 
+    @Test
+    @DisplayName("Reset Cart")
+    public void reset_cart() throws ChartEmptyException {
+        Item defaultItem = new DefaultItem(1, 100, 200, 1);
+        defaultItem.setPrice(priceService.getPriceBySellerAndItemId(String.valueOf(1), 1));
+
+        cart.addItem(defaultItem);
+        cart.resetCart();
+        assertEquals(0, cart.getItems().size());
+        assertEquals(0, cart.getTotalAmount());
+        assertEquals(0, cart.getTotalDiscount());
+        assertEquals(0, cart.getAppliedPromotionId());
+    }
+
 
 
 }

@@ -38,11 +38,6 @@ public abstract class Item implements ItemInterface {
         return quantity;
     }
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
     public abstract void setPrice(double price);
 
     public abstract double getTotalPrice();

@@ -88,7 +88,13 @@ public class Cart implements CartInterface {
 
     @Override
     public void resetCart() {
-
+        if(items.stream().anyMatch(DefaultItem.class::isInstance)){
+            items.stream().filter(DefaultItem.class::isInstance).forEach(item -> ((DefaultItem) item).getVasItems().clear());
+        }
+        this.items.clear();
+        this.totalAmount = 0;
+        this.totalDiscount = 0;
+        this.appliedPromotionId = 0;
     }
 
     @Override

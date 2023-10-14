@@ -48,4 +48,9 @@ public class DefaultItem extends Item {
     public List<VasItem> getVasItems() {
         return this.vasItems;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
