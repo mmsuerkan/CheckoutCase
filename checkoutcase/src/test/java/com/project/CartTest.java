@@ -186,8 +186,8 @@ public class CartTest {
 
         assertEquals(1, cart.getItems().size());
         //content comparison
-        assertEquals("items\": 1 , \"totalAmount\": 500.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0\n" +
-                "ty.item -> ty.vasItem ->0, \"vasItemId\":1, \"vasCategoryId\": 100, \"vasSellerId\": 200, \"price\": 500.0, \"quantity\" 1 \n", cart.displayCart());
+        assertEquals("items\": 1 , \"totalAmount\": 500.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0}}\n" +
+                "ty.item-> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1", cart.displayCart());
 
     }
 
@@ -205,8 +205,9 @@ public class CartTest {
 
         assertEquals(1, cart.getItems().size());
         //content comparison
-        assertEquals("items\": 1 , \"totalAmount\": 700.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0\n" +
-                "ty.item -> ty.vasItem ->1, \"vasItemId\":1, \"vasCategoryId\": 100, \"vasSellerId\": 200, \"price\": 500.0, \"quantity\" 1 \n", cart.displayCart());
+        assertEquals("items\": 1 , \"totalAmount\": 700.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0}}\n" +
+                "ty.item-> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1, \"vasItems\": 1} \n" +
+                "ty.vasItem -> {\"vasItemId\": 1, \"vasCategoryId\": 3242, \"vasSellerId\": 5003, \"price\": 200.0, \"quantity\": 1}", cart.displayCart());
     }
 
 
