@@ -5,14 +5,14 @@ public class VasItem extends Item {
     private int quantity;
 
     public VasItem(int itemId, int categoryId, int sellerId, double price, int quantity) {
-        super(itemId, 3242, 5003, quantity);
+        super(itemId, categoryId, sellerId, quantity);
         this.price = price;
         this.quantity = quantity;
     }
 
     @Override
     public double getTotalPrice() {
-        return price * quantity;
+        return this.price * quantity;
     }
 
     @Override
@@ -32,11 +32,8 @@ public class VasItem extends Item {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
     @Override
     public String toString() {
-        return "vasItemId: " + this.getItemId() + " vasCategoryId: " + this.getCategoryId() + " vasSellerId: " + this.getSellerId() + " price: " + this.getPrice() + " quantity: " + this.getQuantity();
+        return "vasItemId: " + this.getItemId() + " vasCategoryId: " + this.getCategoryId() + " vasSellerId: " + this.getSellerId() + " price: " + this.getPrice() + " quantity: " + this.getQuantity() + "}";
     }
 }

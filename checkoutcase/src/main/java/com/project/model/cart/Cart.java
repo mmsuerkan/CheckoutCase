@@ -1,5 +1,6 @@
 package com.project.model.cart;
 
+import com.project.dto.Response;
 import com.project.exception.*;
 import com.project.interfaces.CartInterface;
 import com.project.model.item.DefaultItem;
@@ -87,26 +88,32 @@ public class Cart implements CartInterface {
     }
 
     @Override
-    public void resetCart() {
-        if (items.stream().anyMatch(DefaultItem.class::isInstance)) {
-            items.stream().filter(DefaultItem.class::isInstance).forEach(item -> ((DefaultItem) item).getVasItems().clear());
+    public String resetCart() {
+        try{
+            if (items.isEmpty()) {
+                throw new ChartEmptyException("Chart is empty. You cannot reset the cart.");
+            }
+            if (items.stream().anyMatch(DefaultItem.class::isInstance)) {
+                items.stream().filter(DefaultItem.class::isInstance).forEach(item -> ((DefaultItem) item).getVasItems().clear());
+            }
+            this.items.clear();
+            this.totalAmount = 0;
+            this.totalDiscount = 0;
+            this.appliedPromotionId = 0;
+            return "Cart reset successfully";
+        }catch (ChartEmptyException e){
+            return e.getMessage();
         }
-        this.items.clear();
-        this.totalAmount = 0;
-        this.totalDiscount = 0;
-        this.appliedPromotionId = 0;
     }
     @Override
-    public void applyPromotions() {
+    public String applyPromotions() {
         PromotionService.applyBestPromotion(this);
+        return "Promotion applied successfully";
     }
 
     @Override
     public String displayCart() {
-        return "total amount: " + getTotalAmount() + "\n" +
-                "total discount: " + getTotalDiscount() + "\n" +
-                "applied promotion id: " + getAppliedPromotionId() + "\n" +
-                "items: " + getItems().stream().map(Item::toString).reduce("", (s, s2) -> s + s2 + "\n");
+        return this.toString();
     }
 
     private int getTotalQuantity() {
@@ -116,6 +123,15 @@ public class Cart implements CartInterface {
     public double getTotalAmount() {
         totalAmount = items.stream().mapToDouble(Item::getTotalPrice).sum();
         return totalAmount;
+    }
+
+    public Item getItemById(int itemId) {
+        for (Item item : items) {
+            if (item.getItemId() == itemId) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public int getCartId() {
@@ -152,5 +168,23 @@ public class Cart implements CartInterface {
 
     public void setAppliedPromotionId(int appliedPromotionId) {
         this.appliedPromotionId = appliedPromotionId;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        result.append("items\": ").append(this.getItems().size()).append(" ")
+                .append(", \"totalAmount\": ").append(getTotalAmount()).append(" ")
+                .append(", \"appliedPromotionId\": ").append(getAppliedPromotionId()).append(" ")
+                .append(", \"totalDiscount\": ").append(getTotalDiscount());
+
+        String itemInfo = getItems().stream().map(Item::toString).reduce("", (s, s2) -> s + s2 + "\n");
+
+        if (!itemInfo.isEmpty()) {
+            result.append("\n").append("ty.item -> ").append(itemInfo);
+        }
+
+        return result.toString();
     }
 }

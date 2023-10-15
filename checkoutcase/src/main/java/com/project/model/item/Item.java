@@ -11,6 +11,8 @@ public abstract class Item implements ItemInterface {
 
     protected double price;
 
+    protected double totalPrice;
+
     public Item(int itemId, int categoryId, int sellerId, int quantity) {
         this.itemId = itemId;
         this.categoryId = categoryId;
@@ -42,8 +44,5 @@ public abstract class Item implements ItemInterface {
 
     public abstract double getTotalPrice();
 
-    @Override
-    public String toString() {
-        return this.getItemId() + " " + this.getCategoryId() + " " + this.getSellerId() + " " + this.getPrice() + " " + this.getQuantity() + " ";
-    }
+
 }

@@ -3,14 +3,14 @@ package com.project.model.item;
 public class DigitalItem extends Item {
     private double price;
 
-    public DigitalItem(int itemId, int sellerId, double price, int quantity) {
-        super(itemId, 7889, sellerId, quantity);
+    public DigitalItem(int itemId, int categoryId, int sellerId, double price, int quantity) {
+        super(itemId, categoryId, sellerId, quantity);
         this.price = price;
     }
 
     @Override
     public double getTotalPrice() {
-        return price * quantity;
+        return this.price * quantity;
     }
 
     @Override
@@ -26,6 +26,11 @@ public class DigitalItem extends Item {
     @Override
     public double getPrice() {
         return this.price;
+    }
+
+    @Override
+    public String toString() {
+        return this.getItemId() + " " + this.getCategoryId() + " " + this.getSellerId() + " " + this.getPrice() + " " + this.getQuantity() + " ";
     }
 }
 

@@ -9,9 +9,10 @@ import java.util.List;
 public class DefaultItem extends Item {
     private List<VasItem> vasItems;
 
-    public DefaultItem(int itemId, int categoryId, int sellerId, int quantity) {
+    public DefaultItem(int itemId, int categoryId, int sellerId, double price, int quantity) {
         super(itemId, categoryId, sellerId, quantity);
         this.vasItems = new ArrayList<>();
+        this.price = price;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DefaultItem extends Item {
         for (VasItem vasItem : vasItems) {
             vasItemsTotalPrice += vasItem.getTotalPrice();
         }
-        return this.price + vasItemsTotalPrice;
+        return (this.price * this.getQuantity()) + vasItemsTotalPrice;
     }
 
     public boolean addVasItem(VasItem vasItem) {
@@ -51,6 +52,6 @@ public class DefaultItem extends Item {
 
     @Override
     public String toString() {
-        return super.toString() + this.getVasItems().toString();
+        return "ty.vasItem ->" + this.vasItems.size() + ", \"vasItemId\":" + this.getItemId() + ", \"vasCategoryId\": " + this.getCategoryId() + ", \"vasSellerId\": " + this.getSellerId() + ", \"price\": " + this.getPrice() + ", \"quantity\" " + this.getQuantity() + " ";
     }
 }

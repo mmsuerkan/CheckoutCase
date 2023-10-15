@@ -1,0 +1,8 @@
+{"result":true, "message": "Item added successfully}
+{"result":true, "message": "Vas Item added successfully}
+{"result":true, "message": "items": 2 , "totalAmount": 881.0 , "appliedPromotionId": 0 , "totalDiscount": 0.0
+ty.item -> ty.vasItem ->1, "vasItemId":1, "vasCategoryId": 1, "vasSellerId": 1, "price": 220.5, "quantity" 2 
+vasItemId: 1 vasCategoryId: 0 vasSellerId: 0 price: 220.0 quantity: 1}
+}
+{"result":true, "message": "Cart reset successfully}
+{"result":true, "message": "items": 0 , "totalAmount": 0.0 , "appliedPromotionId": 0 , "totalDiscount": 0.0}

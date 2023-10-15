@@ -1,0 +1,5 @@
+{"command":"addItem","payload":{"itemId":1,"categoryId":1,"sellerId":1,"price":220.5,"quantity":2}}
+{"command":"addVasItemToItem", "payload": {"itemId": 1, "vasItemId":1, "vasCategoryId": 3242, "vasSellerId":1, "price":220, "quantity":1}}
+{"command":"displayCart"}
+{"command":"resetCart"}
+{"command":"displayCart"}
