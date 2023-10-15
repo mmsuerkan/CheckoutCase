@@ -21,10 +21,6 @@ public class VasItem extends Item {
     public void setPrice(double price) {
         this.price = price;
     }
-    @Override
-    public int getQuantity() {
-        return quantity;
-    }
 
     @Override
     public String toString() {

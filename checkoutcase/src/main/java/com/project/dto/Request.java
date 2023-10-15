@@ -3,7 +3,7 @@ package com.project.dto;
 import com.project.commands.Command;
 
 public class Request {
-    private Command command;
+    private final Command command;
     private Payload payload;
 
     public Request(Command command, Payload payload) {

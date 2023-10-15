@@ -14,9 +14,6 @@ import java.util.Map;
 
 public class CommandProcessor {
 
-    private static Command command;
-    private static Payload payload;
-
 
     private static final Map<String, CommandStrategy> commandStrategies = new HashMap<>();
 

@@ -5,9 +5,6 @@ public class Response {
     private boolean result;
     private String message;
 
-    public Response() {
-    }
-
     public Response(boolean result, String message) {
         this.result = result;
         this.message = message;

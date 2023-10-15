@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart implements CartInterface {
-    private int cartId;
     private List<Item> items;
     private double totalAmount;
     private double totalDiscount;

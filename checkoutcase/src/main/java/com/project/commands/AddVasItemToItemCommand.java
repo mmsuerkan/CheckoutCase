@@ -1,21 +1,19 @@
 package com.project.commands;
 
-import com.project.exception.ItemAlreadyExistsException;
-import com.project.exception.ItemNotUniqueException;
-import com.project.model.cart.Cart;
-import com.project.model.item.DefaultItem;
-import com.project.interfaces.CommandStrategy;
 import com.project.dto.Payload;
 import com.project.dto.Response;
+import com.project.exception.ItemAlreadyExistsException;
+import com.project.interfaces.CommandStrategy;
+import com.project.model.cart.Cart;
+import com.project.model.item.DefaultItem;
 import com.project.model.item.VasItem;
 import com.project.util.ItemFactory;
 
 public class AddVasItemToItemCommand implements CommandStrategy {
     @Override
     public Response handleCommand(Payload payload, Cart cart) {
-        VasItem item = (VasItem) ItemFactory.getItem(payload);
 
-        VasItem vasItem = item;
+        VasItem vasItem = (VasItem) ItemFactory.getItem(payload);
 
         try {
             DefaultItem parentItem = (DefaultItem) cart.getItemById(payload.getItemId());

@@ -16,10 +16,10 @@ import static com.project.util.FileProcessor.writeResponsesToFile;
 public class ShoppingCartApp {
 
     private static List<String> requestLines;
-    public static List<Response> responses = new ArrayList<>();
+    public static final List<Response> responses = new ArrayList<>();
 
     static Cart cart = new Cart();
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         try {
             requestLines = readRequestLinesFromFile("checkoutcase/src/main/java/com/project/files/input.txt");
 
