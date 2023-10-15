@@ -44,23 +44,23 @@ public class PromotionTest {
     @Test
     @DisplayName("Category Promotion")
     public void apply_category_promotion() throws ChartEmptyException {
-        DefaultItem defaultItem = new DefaultItem(1, 100, 1, 300, 1);
+        DefaultItem defaultItem = new DefaultItem(1, 3003, 1, 30, 1);
 
         cart.addItem(defaultItem);
 
-        DefaultItem defaultItem2 = new DefaultItem(2, 3003, 2, 200, 1);
+        DefaultItem defaultItem2 = new DefaultItem(2, 3003, 2, 20, 1);
 
         cart.addItem(defaultItem2);
 
-        DefaultItem defaultItem3 = new DefaultItem(3, 3003, 3, 500, 1);
+        DefaultItem defaultItem3 = new DefaultItem(3, 3003, 3, 50, 1);
 
         cart.addItem(defaultItem3);
 
         cart.applyPromotions();
 
         assertEquals(3, cart.getItems().size());
-        assertEquals(1232, cart.getAppliedPromotionId());
-        assertEquals(250.0, cart.getTotalDiscount());
+        assertEquals(5676, cart.getAppliedPromotionId());
+        assertEquals(2.5, cart.getTotalDiscount());
     }
 
     @Test
