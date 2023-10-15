@@ -1,8 +1,6 @@
 package com.project.model.item;
 
 public class VasItem extends Item {
-    private double price;
-    private int quantity;
 
     public VasItem(int itemId, int categoryId, int sellerId, double price, int quantity) {
         super(itemId, categoryId, sellerId, quantity);
@@ -15,10 +13,6 @@ public class VasItem extends Item {
         return this.price * quantity;
     }
 
-    @Override
-    public int getItemId() {
-        return super.getItemId();
-    }
     @Override
     public double getPrice() {
         return price;

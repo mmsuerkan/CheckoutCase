@@ -54,7 +54,7 @@ public class DefaultItem extends Item {
     public String toString() {
         StringBuilder result = new StringBuilder(super.toString());
         if (!vasItems.isEmpty()) {
-            result.append(", \"vasItems\": " + vasItems.size() + "}");
+            result.append(", \"vasItems\": ").append(vasItems.size()).append("}");
             for (VasItem vasItem : vasItems) {
                 result.append(" \nty.vasItem -> {").append(vasItem.toString());
             }

@@ -20,15 +20,20 @@ public class ShoppingCartApp {
 
     static Cart cart = new Cart();
     public static void main(String[] args) throws IOException {
-        requestLines = readRequestLinesFromFile("checkoutcase/src/main/java/com/project/files/input.txt");
+        try {
+            requestLines = readRequestLinesFromFile("checkoutcase/src/main/java/com/project/files/input.txt");
 
-        for (String requestLine : requestLines) {
-            Request request = processCommand(requestLine);
-            Response response = handleCommand(request,cart);
+            for (String requestLine : requestLines) {
+                Request request = processCommand(requestLine);
+                Response response = handleCommand(request,cart);
 
-            if (response != null) responses.add(response);
+                if (response != null) responses.add(response);
+            }
+
+            writeResponsesToFile(responses, "checkoutcase/src/main/java/com/project/files/output.txt");
+            System.out.println("Checkout completed successfully.");
+        }catch (Exception e){
+            System.out.println("Checkout failed.");
         }
-
-        writeResponsesToFile(responses, "checkoutcase/src/main/java/com/project/files/output.txt");
     }
 }

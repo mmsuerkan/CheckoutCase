@@ -13,10 +13,6 @@ public class Response {
         this.message = message;
     }
 
-    public boolean getResult() {
-        return result;
-    }
-
     public String getMessage() {
         return message;
     }

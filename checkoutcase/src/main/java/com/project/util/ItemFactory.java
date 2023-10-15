@@ -8,6 +8,10 @@ import com.project.model.item.VasItem;
 
 public class ItemFactory {
 
+    private ItemFactory() {
+    }
+
+
     public static Item getItem(Payload payload) {
         if (payload.getVasCategoryId() == 3242) {
             return new VasItem(payload.getItemId(), payload.getCategoryId(), payload.getSellerId(),payload.getPrice(), payload.getQuantity());

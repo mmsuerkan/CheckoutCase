@@ -15,23 +15,17 @@ public class AddVasItemToItemCommand implements CommandStrategy {
     public Response handleCommand(Payload payload, Cart cart) {
         VasItem item = (VasItem) ItemFactory.getItem(payload);
 
-        if (item instanceof VasItem) {
-            VasItem vasItem = (VasItem) item;
+        VasItem vasItem = item;
 
-            try {
-                DefaultItem parentItem = (DefaultItem) cart.getItemById(payload.getItemId());
+        try {
+            DefaultItem parentItem = (DefaultItem) cart.getItemById(payload.getItemId());
 
-                if(parentItem.getVasItems().stream().filter(vasItem1 -> vasItem1.getItemId() == vasItem.getItemId()).count() > 0)
-                       throw new ItemAlreadyExistsException("Vas Item already added");
-                if (parentItem == null)
-                    throw new ItemNotUniqueException("Item not found");
-                parentItem.addVasItem(vasItem);
-                return new Response(true, "Vas Item added successfully");
-            } catch (Exception e) {
-                return new Response(false, e.getMessage());
-            }
-        } else {
-            return new Response(false, "Item is not a VasItem");
+            if(parentItem.getVasItems().stream().anyMatch(vasItem1 -> vasItem1.getItemId() == vasItem.getItemId()))
+                   throw new ItemAlreadyExistsException("Vas Item already added");
+            parentItem.addVasItem(vasItem);
+            return new Response(true, "Vas Item added successfully");
+        } catch (Exception e) {
+            return new Response(false, e.getMessage());
         }
     }
 }

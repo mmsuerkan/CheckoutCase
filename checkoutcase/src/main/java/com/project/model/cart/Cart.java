@@ -1,13 +1,11 @@
 package com.project.model.cart;
 
-import com.project.dto.Response;
 import com.project.exception.*;
 import com.project.interfaces.CartInterface;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
 import com.project.service.PromotionService;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +87,7 @@ public class Cart implements CartInterface {
 
     @Override
     public String resetCart() {
-        try{
+        try {
             if (items.isEmpty()) {
                 throw new ChartEmptyException("Chart is empty. You cannot reset the cart.");
             }
@@ -101,10 +99,11 @@ public class Cart implements CartInterface {
             this.totalDiscount = 0;
             this.appliedPromotionId = 0;
             return "Cart reset successfully";
-        }catch (ChartEmptyException e){
+        } catch (ChartEmptyException e) {
             return e.getMessage();
         }
     }
+
     @Override
     public String applyPromotions() {
         PromotionService.applyBestPromotion(this);
@@ -146,25 +145,11 @@ public class Cart implements CartInterface {
         return null;
     }
 
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
 
     public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
 
     public double getTotalDiscount() {
         return totalDiscount;

@@ -147,7 +147,7 @@ public class CartTest {
 
     @Test
     @DisplayName("Remove Item from Empty Cart")
-    public void remove_item_from_empty_cart() throws ChartEmptyException {
+    public void remove_item_from_empty_cart() {
 
         assertThrows(ChartEmptyException.class, () -> cart.removeItem(1));
     }
@@ -165,7 +165,7 @@ public class CartTest {
 
     @Test
     @DisplayName("Reset Cart")
-    public void reset_cart() throws ChartEmptyException {
+    public void reset_cart() {
         Item defaultItem = new DefaultItem(1, 100, 200, 1, 1);
 
         cart.addItem(defaultItem);
@@ -178,7 +178,7 @@ public class CartTest {
 
     @Test
     @DisplayName("Display Cart without VasItem")
-    public void display_cart_without_VasItem() throws ChartEmptyException {
+    public void display_cart_without_VasItem() {
         Item defaultItem = new DefaultItem(1, 100, 200, 500, 1);
 
         cart.addItem(defaultItem);
@@ -187,13 +187,13 @@ public class CartTest {
         assertEquals(1, cart.getItems().size());
         //content comparison
         assertEquals("items\": 1 , \"totalAmount\": 500.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0}}\n" +
-                "ty.item-> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1", cart.displayCart());
+                "ty.item -> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1", cart.displayCart());
 
     }
 
     @Test
     @DisplayName("Display Cart with VasItem")
-    public void display_cart_with_VasItem() throws ChartEmptyException {
+    public void display_cart_with_VasItem() {
         DefaultItem defaultItem = new DefaultItem(1, 100, 200, 500, 1);
 
         cart.addItem(defaultItem);
@@ -206,7 +206,7 @@ public class CartTest {
         assertEquals(1, cart.getItems().size());
         //content comparison
         assertEquals("items\": 1 , \"totalAmount\": 700.0 , \"appliedPromotionId\": 0 , \"totalDiscount\": 0.0}}\n" +
-                "ty.item-> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1, \"vasItems\": 1} \n" +
+                "ty.item -> {\"itemId\": 1, \"categoryId\": 100, \"sellerId\": 200, \"price\": 500.0, \"quantity\": 1, \"vasItems\": 1} \n" +
                 "ty.vasItem -> {\"vasItemId\": 1, \"vasCategoryId\": 3242, \"vasSellerId\": 5003, \"price\": 200.0, \"quantity\": 1}", cart.displayCart());
     }
 

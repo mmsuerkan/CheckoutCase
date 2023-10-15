@@ -1,7 +1,7 @@
 package com.project.commands;
 
 public class Command {
-    private String name;
+    private final String name;
 
     public Command(String name) {
         this.name = name;

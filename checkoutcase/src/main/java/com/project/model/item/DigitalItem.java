@@ -1,7 +1,6 @@
 package com.project.model.item;
 
 public class DigitalItem extends Item {
-    private double price;
 
     public DigitalItem(int itemId, int categoryId, int sellerId, double price, int quantity) {
         super(itemId, categoryId, sellerId, quantity);
@@ -11,11 +10,6 @@ public class DigitalItem extends Item {
     @Override
     public double getTotalPrice() {
         return this.price * quantity;
-    }
-
-    @Override
-    public int getItemId() {
-        return super.getItemId();
     }
 
     @Override
