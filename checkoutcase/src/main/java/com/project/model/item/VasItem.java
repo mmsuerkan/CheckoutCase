@@ -34,6 +34,6 @@ public class VasItem extends Item {
 
     @Override
     public String toString() {
-        return "vasItemId: " + this.getItemId() + " vasCategoryId: " + this.getCategoryId() + " vasSellerId: " + this.getSellerId() + " price: " + this.getPrice() + " quantity: " + this.getQuantity() + "}";
+        return "\"vasItemId\": " + this.getItemId() + ", \"vasCategoryId\": " + this.getCategoryId() + ", \"vasSellerId\": " + this.getSellerId() + ", \"price\": " + this.getPrice() + ", \"quantity\": " + this.getQuantity() + "}";
     }
 }

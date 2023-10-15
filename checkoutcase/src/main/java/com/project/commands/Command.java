@@ -1,4 +1,4 @@
-package com.project.dto;
+package com.project.commands;
 
 public class Command {
     private String name;

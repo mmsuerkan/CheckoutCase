@@ -30,7 +30,7 @@ public class DigitalItem extends Item {
 
     @Override
     public String toString() {
-        return "ty.item ->" + ", \"ItemId\":" + this.getItemId() + ", \"vasCategoryId\": " + this.getCategoryId() + ", \"vasSellerId\": " + this.getSellerId() + ", \"price\": " + this.getPrice() + ", \"quantity\" " + this.getQuantity() + " ";
+        return super.toString();
     }
 }
 

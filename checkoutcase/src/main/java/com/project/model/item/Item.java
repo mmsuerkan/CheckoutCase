@@ -44,5 +44,13 @@ public abstract class Item implements ItemInterface {
 
     public abstract double getTotalPrice();
 
-
+    @Override
+    public String toString() {
+        return "\nty.item-> {" +
+                "\"itemId\": " + itemId +
+                ", \"categoryId\": " + categoryId +
+                ", \"sellerId\": " + sellerId +
+                ", \"price\": " + price +
+                ", \"quantity\": " + quantity;
+    }
 }

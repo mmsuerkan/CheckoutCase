@@ -113,7 +113,19 @@ public class Cart implements CartInterface {
 
     @Override
     public String displayCart() {
-        return this.toString();
+        StringBuilder result = new StringBuilder();
+
+        result.append("items\": ").append(this.getItems().size()).append(" ")
+                .append(", \"totalAmount\": ").append(getTotalAmount()).append(" ")
+                .append(", \"appliedPromotionId\": ").append(getAppliedPromotionId()).append(" ")
+                .append(", \"totalDiscount\": ").append(getTotalDiscount()).append("}}");
+
+        //Print both item and if item is default item print vas items
+        for (Item item : items) {
+            result.append(item.toString());
+        }
+
+        return result.toString();
     }
 
     private int getTotalQuantity() {
@@ -170,21 +182,4 @@ public class Cart implements CartInterface {
         this.appliedPromotionId = appliedPromotionId;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-
-        result.append("items\": ").append(this.getItems().size()).append(" ")
-                .append(", \"totalAmount\": ").append(getTotalAmount()).append(" ")
-                .append(", \"appliedPromotionId\": ").append(getAppliedPromotionId()).append(" ")
-                .append(", \"totalDiscount\": ").append(getTotalDiscount());
-
-        String itemInfo = getItems().stream().map(Item::toString).reduce("", (s, s2) -> s + s2 + "\n");
-
-        if (!itemInfo.isEmpty()) {
-            result.append("\n").append("ty.item -> ").append(itemInfo);
-        }
-
-        return result.toString();
-    }
 }

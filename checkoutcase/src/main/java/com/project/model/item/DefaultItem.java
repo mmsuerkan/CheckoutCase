@@ -52,6 +52,13 @@ public class DefaultItem extends Item {
 
     @Override
     public String toString() {
-        return "ty.vasItem ->" + this.vasItems.size() + ", \"vasItemId\":" + this.getItemId() + ", \"vasCategoryId\": " + this.getCategoryId() + ", \"vasSellerId\": " + this.getSellerId() + ", \"price\": " + this.getPrice() + ", \"quantity\" " + this.getQuantity() + " ";
+        StringBuilder result = new StringBuilder(super.toString());
+        if (!vasItems.isEmpty()) {
+            result.append(", \"vasItems\": " + vasItems.size() + "}");
+            for (VasItem vasItem : vasItems) {
+                result.append(" \nty.vasItem -> {").append(vasItem.toString());
+            }
+        }
+        return result.toString() ;
     }
 }
