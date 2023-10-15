@@ -1,10 +1,7 @@
 package com.project;
 
-import com.project.exception.ItemQuantityExceededException;
-import com.project.exception.VasItemLimitExceededException;
-import com.project.exception.VasItemPriceExceededException;
-import com.project.model.cart.Cart;
 import com.project.exception.ChartEmptyException;
+import com.project.model.cart.Cart;
 import com.project.model.item.DefaultItem;
 import com.project.model.item.DigitalItem;
 import com.project.model.item.Item;
@@ -14,7 +11,6 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CartTest {
 

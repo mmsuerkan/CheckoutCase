@@ -1,7 +1,5 @@
 package com.project.dto;
 
-import com.project.commands.Command;
-
 public class Request {
     private Command command;
     private Payload payload;

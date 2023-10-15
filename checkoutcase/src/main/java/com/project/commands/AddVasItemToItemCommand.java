@@ -4,13 +4,11 @@ import com.project.exception.ItemAlreadyExistsException;
 import com.project.exception.ItemNotUniqueException;
 import com.project.model.cart.Cart;
 import com.project.model.item.DefaultItem;
-import com.project.model.item.Item;
 import com.project.interfaces.CommandStrategy;
 import com.project.dto.Payload;
 import com.project.dto.Response;
 import com.project.model.item.VasItem;
-
-import java.util.List;
+import com.project.util.ItemFactory;
 
 public class AddVasItemToItemCommand implements CommandStrategy {
     @Override
@@ -28,7 +26,6 @@ public class AddVasItemToItemCommand implements CommandStrategy {
                 if (parentItem == null)
                     throw new ItemNotUniqueException("Item not found");
                 parentItem.addVasItem(vasItem);
-                cart.addItem(vasItem);
                 return new Response(true, "Vas Item added successfully");
             } catch (Exception e) {
                 return new Response(false, e.getMessage());

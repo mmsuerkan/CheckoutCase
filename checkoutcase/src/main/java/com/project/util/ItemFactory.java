@@ -1,4 +1,4 @@
-package com.project.commands;
+package com.project.util;
 
 import com.project.dto.Payload;
 import com.project.model.item.DefaultItem;
