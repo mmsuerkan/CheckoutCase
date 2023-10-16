@@ -114,7 +114,7 @@ public class Cart implements CartInterface {
         StringBuilder result = new StringBuilder();
 
         result.append("items\": ").append(this.getItems().size()).append(" ")
-                .append(", \"totalAmount\": ").append(getTotalAmount()).append(" ")
+                .append(", \"totalAmount\": ").append(getTotalAmountAfterDiscount()).append(" ")
                 .append(", \"appliedPromotionId\": ").append(getAppliedPromotionId()).append(" ")
                 .append(", \"totalDiscount\": ").append(getTotalDiscount()).append("}}");
 
@@ -124,6 +124,11 @@ public class Cart implements CartInterface {
         }
 
         return result.toString();
+    }
+
+    @Override
+    public double getTotalAmountAfterDiscount() {
+        return getTotalAmount() - getTotalDiscount();
     }
 
     private int getTotalQuantity() {

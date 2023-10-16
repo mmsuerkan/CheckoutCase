@@ -61,6 +61,7 @@ public class PromotionTest {
         assertEquals(3, cart.getItems().size());
         assertEquals(5676, cart.getAppliedPromotionId());
         assertEquals(2.5, cart.getTotalDiscount());
+        assertEquals(cart.getTotalAmount()-cart.getTotalDiscount(), cart.getTotalAmountAfterDiscount());
     }
 
     @Test

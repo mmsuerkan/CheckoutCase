@@ -9,4 +9,6 @@ public interface CartInterface {
     String resetCart();
     String applyPromotions();
     String displayCart();
+
+    double getTotalAmountAfterDiscount();
 }
