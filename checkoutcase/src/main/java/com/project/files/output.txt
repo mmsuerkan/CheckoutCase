@@ -1,8 +1,8 @@
-{"result":true, "message": "Item added successfully
-{"result":true, "message": "Vas Item added successfully
+{"result":true, "message": "Item added successfully }
+{"result":true, "message": "Vas Item added successfully }
 {"result":true, "message": "items": 1 , "totalAmount": 661.0 , "appliedPromotionId": 0 , "totalDiscount": 0.0}}
 ty.item -> {"itemId": 1, "categoryId": 1, "sellerId": 1, "price": 220.5, "quantity": 2, "vasItems": 1} 
-ty.vasItem -> {"vasItemId": 1, "vasCategoryId": 0, "vasSellerId": 0, "price": 220.0, "quantity": 1}
-{"result":true, "message": "Item removed successfully.
-{"result":true, "message": "Chart is empty. You cannot reset the cart.
-{"result":true, "message": "items": 0 , "totalAmount": 0.0 , "appliedPromotionId": 0 , "totalDiscount": 0.0}}
+ty.vasItem -> {"vasItemId": 1, "vasCategoryId": 0, "vasSellerId": 0, "price": 220.0, "quantity": 1} }
+{"result":true, "message": "Item removed successfully. }
+{"result":true, "message": "Chart is empty. You cannot reset the cart. }
+{"result":true, "message": "items": 0 , "totalAmount": -250.0 , "appliedPromotionId": 1232 , "totalDiscount": 250.0}} }

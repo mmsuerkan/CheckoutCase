@@ -17,6 +17,6 @@ public class Response {
 
     @Override
     public String toString() {
-        return "{\"result\":"+result+", \"message\": \""+message;
+        return "{\"result\":"+result+", \"message\": \""+message + " }";
     }
 }

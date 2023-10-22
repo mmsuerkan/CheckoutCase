@@ -3,6 +3,7 @@ package com.project.model.cart;
 import com.project.exception.*;
 import com.project.interfaces.CartInterface;
 import com.project.model.item.DefaultItem;
+import com.project.model.item.DigitalItem;
 import com.project.model.item.Item;
 import com.project.model.item.VasItem;
 import com.project.service.PromotionService;
@@ -23,6 +24,16 @@ public class Cart implements CartInterface {
     @Override
     public boolean addItem(Item item) {
 
+        validateItem(item);
+        items.add(item);
+        return true;
+    }
+
+    private void validateItem(Item item) {
+        if (isDigitalItem(item) && item.getQuantity() > 5) {
+            throw new RuntimeException("Digital item quantity cannot exceed 5.");
+        }
+
         if (item.getQuantity() > 10) {
             throw new ItemQuantityExceededException("Item quantity cannot exceed 10.");
         }
@@ -42,16 +53,13 @@ public class Cart implements CartInterface {
         if (!isUniqueItem(item)) {
             throw new ItemNotUniqueException("Item is not unique. Maximum 10 identical items allowed.");
         }
-
-        items.add(item);
-        return true;
     }
 
     private boolean isUniqueItem(Item item) {
         // Benzersizlik kontrolü
         int itemCount = 0;
         for (Item existingItem : items) {
-            if (!isVasItem(existingItem) && existingItem != item && existingItem.getItemId() == item.getItemId() && existingItem.getClass() == item.getClass()) {
+            if (!isVasItem(existingItem) && existingItem.equals(item) && existingItem.getItemId() == item.getItemId() && existingItem.getClass() == item.getClass()) {
                 itemCount++;
             }
             if (itemCount >= 10) {
@@ -63,6 +71,10 @@ public class Cart implements CartInterface {
 
     public static boolean isVasItem(Item item) {
         return item instanceof VasItem;
+    }
+
+    public static boolean isDigitalItem(Item item) {
+        return item instanceof DigitalItem;
     }
 
     @Override
@@ -112,7 +124,7 @@ public class Cart implements CartInterface {
     @Override
     public String displayCart() {
         StringBuilder result = new StringBuilder();
-
+        applyPromotions();
         result.append("items\": ").append(this.getItems().size()).append(" ")
                 .append(", \"totalAmount\": ").append(getTotalAmountAfterDiscount()).append(" ")
                 .append(", \"appliedPromotionId\": ").append(getAppliedPromotionId()).append(" ")

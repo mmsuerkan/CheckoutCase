@@ -7,7 +7,7 @@ import static com.project.model.cart.Cart.isVasItem;
 
 public class SameSellerPromotion extends Promotion {
 
-    protected int discountPercentage;
+    protected static int discountPercentage;
 
     public SameSellerPromotion(String promotionName) {
         super(9909, promotionName);
@@ -28,9 +28,10 @@ public class SameSellerPromotion extends Promotion {
             }
         }
 
+
         // Eğer tüm ürünler aynı satıcıya aitse, indirimi uygulayın
         if (sellerId != -1) {
-             discount = cart.getTotalAmount() * 0.10;
+             discount = cart.getTotalAmount() * (discountPercentage / 100);
         }
         return discount;
     }
